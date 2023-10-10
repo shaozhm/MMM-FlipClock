@@ -1,5 +1,52 @@
+@font-face {
+    font-family: sf-pro-rounded-regular;
+    src: url(./SF-Pro-Rounded-Regular.otf) format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: sf-pro-rounded-bold;
+    src: url(./SF-Pro-Rounded-Bold.otf) format("opentype");
+    font-weight: 400;
+    font-style: bold
+}
+@font-face {
+    font-family: sf-pro-display-regular;
+    src: url(./SF-Pro-Display-Regular.otf) format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: sf-pro-display-bold;
+    src: url(./SF-Pro-Display-Bold.otf) format("opentype");
+    font-weight: 400;
+    font-style: bold
+}
+@font-face {
+    font-family: oswald-regular;
+    src: url(./oswald-regular.woff2) format("woff2"),url(./oswald-regular.woff) format("woff");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: clearsans-regular;
+    src: url(./clearsans-regular.woff2) format("woff2"),url(./clearsans-regular.woff) format("woff");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: linotte-semibold;
+    src: url(./linotte-semibold.woff2) format("woff2"),url(./linotte-semibold.woff) format("woff");
+    font-weight: 400;
+    font-style: normal
+}
+
+.tick-flip {
+    font-family: clearsans-regular, sans-serif !important;
+}
 .tick {
-    font-size: 1rem;
     white-space: nowrap;
 }
 
@@ -30,6 +77,26 @@
 .tick-group {
     margin: 0 .5em;
     text-align: center;
+}
+
+.date {
+    margin-bottom: .5em;
+}
+
+.date-large {
+    font-size: 0.8rem;
+}
+
+.date-medium {
+    font-size: 0.3rem;
+}
+
+.time-large {
+    font-size: 2.2rem;
+}
+
+.time-medium {
+    font-size: 0.8rem;
 }
 
 body {

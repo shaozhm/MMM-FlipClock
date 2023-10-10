@@ -31,10 +31,19 @@ Module.register("MMM-FlipClock", {
     // Define start sequence.
     start: function() {
         Log.info("Starting module: " + this.name);
-
         // Set locale.
         moment.locale(config.language);
+        this.music = false;
     },
+	notificationReceived(notification, payload, sender) {
+		if (notification === 'SHOW_CLOCK') {
+            this.music = false;
+		}
+        if (notification === "HIDE_CLOCK") {
+            this.music = true;
+		}
+        this.updateDom(1000);
+	},
     // Override dom generator.
     getDom: function() {
         var wrapper = document.createElement("div");
@@ -44,7 +53,14 @@ Module.register("MMM-FlipClock", {
         var weekWrapper = document.createElement("div");
 
         // Style Wrappers
-        dateWrapper.className = "date normal medium";
+        if (this.music) {
+            dateWrapper.className = "date normal date-medium";
+            timeWrapper.className = "time-medium";
+        } else {
+            dateWrapper.className = "date normal date-large";
+            timeWrapper.className = "time-large";
+        }
+        
         weekWrapper.className = "week dimmed medium";
 
         // var timeString;
@@ -54,13 +70,152 @@ Module.register("MMM-FlipClock", {
         }
 
         if (this.config.showDate) {
-            var dataKeyDate = document.createAttribute("data-key");
-            dataKeyDate.value = "date";
-            dateWrapper.attributes.setNamedItem(dataKeyDate);
+            // var dataKeyDate = document.createAttribute("data-key");
+            // dataKeyDate.value = "date";
+            // dateWrapper.attributes.setNamedItem(dataKeyDate);
 
-            var dataViewDate = document.createAttribute("data-view");
-            dataViewDate.value = "text";
-            dateWrapper.attributes.setNamedItem(dataViewDate);
+            // var dataViewDate = document.createAttribute("data-view");
+            // dataViewDate.value = "text";
+            // dateWrapper.attributes.setNamedItem(dataViewDate);
+
+            //Week Prefix
+            var dataWeekPrefixWrapper = document.createElement("span");
+            dataWeekPrefixWrapper.className = "tick-text-inline";
+
+            var dataKeyHWeekPrefix = document.createAttribute("data-key");
+            dataKeyHWeekPrefix.value = "weekprefix";
+            dataWeekPrefixWrapper.attributes.setNamedItem(dataKeyHWeekPrefix);
+
+            var dataViewWeekPrefix = document.createAttribute("data-view");
+            dataViewWeekPrefix.value = "text";
+            dataWeekPrefixWrapper.attributes.setNamedItem(dataViewWeekPrefix);
+
+            dateWrapper.appendChild(dataWeekPrefixWrapper);
+
+            //Day of Week
+            var dataDoWWrapper = document.createElement("span");
+
+            var dataKeyDoW = document.createAttribute("data-key");
+            dataKeyDoW.value = "dow";
+            dataDoWWrapper.attributes.setNamedItem(dataKeyDoW);
+
+            var dataRepeatDoW = document.createAttribute("data-repeat");
+            dataRepeatDoW.value = "true";
+            dataDoWWrapper.attributes.setNamedItem(dataRepeatDoW);
+
+            var dataDoWViewWrapper = document.createElement("span");
+
+            var dataViewDoW = document.createAttribute("data-view");
+            dataViewDoW.value = "flip";
+            dataDoWViewWrapper.attributes.setNamedItem(dataViewDoW);
+
+            var dataStyleDoW = document.createAttribute("data-style");
+            dataStyleDoW.value = "flip-easing: " + this.config.easing;
+            dataDoWViewWrapper.attributes.setNamedItem(dataStyleDoW);
+
+            dataDoWWrapper.appendChild(dataDoWViewWrapper);
+
+            dateWrapper.appendChild(dataDoWWrapper);
+
+            //WeekSeperator
+            var dataWeekSeperator1Wrapper = document.createElement("span");
+            dataWeekSeperator1Wrapper.className = "tick-text-inline";
+
+            var dataKeyHWeekSeperator1 = document.createAttribute("data-key");
+            dataKeyHWeekSeperator1.value = "weeksep";
+            dataWeekSeperator1Wrapper.attributes.setNamedItem(dataKeyHWeekSeperator1);
+
+            var dataViewWeekSeperator1 = document.createAttribute("data-view");
+            dataViewWeekSeperator1.value = "text";
+            dataWeekSeperator1Wrapper.attributes.setNamedItem(dataViewWeekSeperator1);
+
+            dateWrapper.appendChild(dataWeekSeperator1Wrapper);
+
+            // Months
+            var dataMonthsWrapper = document.createElement("span");
+
+            var dataKeyMonths = document.createAttribute("data-key");
+            dataKeyMonths.value = "months";
+            dataMonthsWrapper.attributes.setNamedItem(dataKeyMonths);
+
+            // var dataRepeatMonths = document.createAttribute("data-repeat");
+            // dataRepeatMonths.value = "true";
+            // dataMonthsWrapper.attributes.setNamedItem(dataRepeatMonths);
+
+            var dataTransformMonths = document.createAttribute("data-transform");
+            dataTransformMonths.value = "pad(00)";
+            dataMonthsWrapper.attributes.setNamedItem(dataTransformMonths);
+
+            var dataMonthsViewWrapper = document.createElement("span");
+
+            var dataViewMonths = document.createAttribute("data-view");
+            dataViewMonths.value = "flip";
+            dataMonthsViewWrapper.attributes.setNamedItem(dataViewMonths);
+
+            var dataStyleMonths = document.createAttribute("data-style");
+            dataStyleMonths.value = "flip-easing: " + this.config.easing;
+            dataMonthsViewWrapper.attributes.setNamedItem(dataStyleMonths);
+
+            dataMonthsWrapper.appendChild(dataMonthsViewWrapper);
+
+            dateWrapper.appendChild(dataMonthsWrapper);
+
+            //MonthSeperator
+            var dataMonthSeperator1Wrapper = document.createElement("span");
+            dataMonthSeperator1Wrapper.className = "tick-text-inline";
+
+            var dataKeyHMonthSeperator1 = document.createAttribute("data-key");
+            dataKeyHMonthSeperator1.value = "monthsep";
+            dataMonthSeperator1Wrapper.attributes.setNamedItem(dataKeyHMonthSeperator1);
+
+            var dataViewMonthSeperator1 = document.createAttribute("data-view");
+            dataViewMonthSeperator1.value = "text";
+            dataMonthSeperator1Wrapper.attributes.setNamedItem(dataViewMonthSeperator1);
+
+            dateWrapper.appendChild(dataMonthSeperator1Wrapper);
+
+            //Days
+            var dataDaysWrapper = document.createElement("span");
+
+            var dataKeyDays = document.createAttribute("data-key");
+            dataKeyDays.value = "days";
+            dataDaysWrapper.attributes.setNamedItem(dataKeyDays);
+
+            // var dataRepeatDays = document.createAttribute("data-repeat");
+            // dataRepeatDays.value = "true";
+            // dataDaysWrapper.attributes.setNamedItem(dataRepeatDays);
+
+            var dataTransformDays = document.createAttribute("data-transform");
+            dataTransformDays.value = "pad(00)";
+            dataDaysWrapper.attributes.setNamedItem(dataTransformDays);
+
+            var dataDaysViewWrapper = document.createElement("span");
+
+            var dataViewDays = document.createAttribute("data-view");
+            dataViewDays.value = "flip";
+            dataDaysViewWrapper.attributes.setNamedItem(dataViewDays);
+
+            var dataStyleDays = document.createAttribute("data-style");
+            dataStyleDays.value = "flip-easing: " + this.config.easing;
+            dataDaysViewWrapper.attributes.setNamedItem(dataStyleDays);
+
+            dataDaysWrapper.appendChild(dataDaysViewWrapper);
+
+            dateWrapper.appendChild(dataDaysWrapper);
+
+            //DaySeperator
+            var dataDaySeperator1Wrapper = document.createElement("span");
+            dataDaySeperator1Wrapper.className = "tick-text-inline";
+
+            var dataKeyHDaySeperator1 = document.createAttribute("data-key");
+            dataKeyHDaySeperator1.value = "daysep";
+            dataDaySeperator1Wrapper.attributes.setNamedItem(dataKeyHDaySeperator1);
+
+            var dataViewDaySeperator1 = document.createAttribute("data-view");
+            dataViewDaySeperator1.value = "text";
+            dataDaySeperator1Wrapper.attributes.setNamedItem(dataViewDaySeperator1);
+
+            dateWrapper.appendChild(dataDaySeperator1Wrapper);
         }
         if (this.config.showWeek) {
             var dataKeyWeek = document.createAttribute("data-key");
@@ -236,6 +391,13 @@ Module.register("MMM-FlipClock", {
                         minutes: now.format("mm"),
                         seconds: now.format("ss"),
                         period: now.format(tick._constants["PERIOD_FORMAT"]),
+                        weeksep: ' ',
+                        weekprefix: '星期',
+                        dow: now.format("dd"),
+                        monthsep: '/',
+                        months: now.format("M"),
+                        days: now.format("D"),
+                        daysep: '',
                         date: now.format(module.config.dateFormat),
                         week: module.translate("WEEK", { weekNumber: now.week() }),
                     };

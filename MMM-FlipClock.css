@@ -1,4 +1,28 @@
 @font-face {
+    font-family: bene-subset;
+    src: url(./fonts/benne-subset.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: bitmap-subset;
+    src: url(./fonts/bitmap-subset.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: bungee-subset;
+    src: url(./fonts/bungee-subset.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: cabin-subset;
+    src: url(./fonts/cabin-subset.ttf) format("truetype");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
     font-family: sf-pro-rounded-regular;
     src: url(./SF-Pro-Rounded-Regular.otf) format("opentype");
     font-weight: 400;
@@ -44,7 +68,7 @@
 }
 
 .tick-flip {
-    font-family: clearsans-regular, sans-serif !important;
+    font-family: bitmap-subset, clearsans-regular, sans-serif !important;
 }
 .tick {
     white-space: nowrap;
